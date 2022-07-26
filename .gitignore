@@ -128,4 +128,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/!/db.sqlite3
-/media/
+
+/media/images/
+
+
+
+/media/original_images/
+
