@@ -1,15 +1,17 @@
 {% load navigation_tags wagtailcore_tags %}
 
-<ul class="dropdown-menu">
-    {% for child in menuitems_children %}
-        <li><a href="{% pageurl child %}">{{ child.title }}</a></li>
-        {% if child.has_dropdown %}
-            <a href="{% pageurl child %}" class="allow-toggle">{{ menuitem.title }} <span><a
-                    class="caret-custom dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                    aria-expanded="false"></a></span></a>
-            {% top_menu_children parent=child %}
-            {# Used to display child menu items #}
-        {% else %}
-        {% endif %}
-    {% endfor %}
-</ul>
+<div class="header-menu-submenu">
+    <div class="header-menu-submenu-container">
+        {% for child in menuitems_children %}
+            <div class="header-menu-submenu-{{ child.title }}"><a href="{% pageurl child %}">{{ child.title }}</a></div>
+            {% if child.has_dropdown %}
+                <a href="{% pageurl child %}" class="allow-toggle">{{ menuitem.title }} <span><a
+                        class="caret-custom dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false"></a></span></a>
+                {% top_menu_children parent=child %}
+                {# Used to display child menu items #}
+            {% else %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

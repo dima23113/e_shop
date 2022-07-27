@@ -1,15 +1,17 @@
 {% load navigation_tags %}
+{% load static %}
 
-<div class="header clearfix">
-    <div class="container">
-        <div class="navigation" data-navigation>
-            <nav class="navigation__desktop" aria-label="Main">
-                <ul class="navigation__items nav-pills">
-                    {# main_menu is defined in base/templatetags/navigation_tags.py #}
-                    {% get_site_root as site_root %}
-                    {% top_menu parent=site_root calling_page=self %}
-                </ul>
-            </nav>
-        </div>
-    </div>
+
+<div class="header-menu-categories col-md-5 col-sm-5 col-lg-5">
+    {% get_site_root as site_root %}
+    {% top_menu parent=site_root calling_page=self %}
 </div>
+<div class="header-menu-search col-md-3 col-sm-3 col-lg-3">
+    <form id="search_form" action=".">
+        <input class="header-search-field" type="text" name="q" placeholder="Поиск..." autocomplete="off">
+        <button class="header-search-button">
+            <img class="search-icon" src="{% static "img/search.png" %}">
+        </button>
+    </form>
+</div>
+<div class="header-menu-search col-md-2 col-sm-2 col-lg-2"></div>
