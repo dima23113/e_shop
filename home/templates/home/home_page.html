@@ -1,14 +1,65 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
-
 {% endblock extra_css %}
-
 {% block content %}
 
-    {% include 'includes/header.html' %}
-
+    <div class="top-banners">
+        <div class="top-banners-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-lg-2"></div>
+                    <div class="swiper banner col-md-8 col-sm-8 col-lg-8">
+                        <div class="swiper-wrapper">
+                            {% for banner in page.banner %}
+                                {% if banner.block_type == 'brand_banner' %}
+                                    {% image banner.value.brand.image_banner original as banner_photo %}
+                                    <div class="swiper-slide"><a href="{{ banner.value.url }}"><img
+                                            src="{{ banner_photo.url }}"></a>
+                                    </div>
+                                {% else %}
+                                    {% image banner.value.product.image_banner original as banner_photo %}
+                                    <div class="swiper-slide"><a href="{{ banner.value.url }}"><img
+                                            src="{{ banner_photo.url }}"></a></div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-lg-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="brand-logo">
+        <div class="brand-logo-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-lg-2"></div>
+                    <div class="swiper brandLogo col-md-8 col-sm-8 col-lg-8">
+                        <div class="swiper-wrapper">
+                            {% for logo in page.brand_logo %}
+                                {% image logo.value.brand.image original as logo_photo %}
+                                <div class="swiper-slide"><a href="{{ logo.value.url }}"><img
+                                        src="{{ logo_photo.url }}"></a></div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-lg-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="{% static "js/banner-swiper.js" %}"></script>
+{% endblock extra_js %}

@@ -5,8 +5,10 @@ from wagtail.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page
 
+from home.models import BannerMeta
 
-class Brand(Page):
+
+class Brand(BannerMeta, Page):
     subpage_types = []
     parent_page_types = ['brand.BrandIndex']
     name = models.CharField('Название бренда', max_length=256)
@@ -22,7 +24,8 @@ class Brand(Page):
         FieldPanel('title'),
         FieldPanel('name'),
         FieldPanel('description'),
-        ImageChooserPanel('image')
+        ImageChooserPanel('image'),
+        FieldPanel('image_banner')
     ]
 
     def __str__(self):

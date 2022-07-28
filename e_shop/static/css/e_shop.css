@@ -1,3 +1,10 @@
+button {
+    padding: 0;
+    border: none;
+    background-color: #1b272c;
+    color: white;
+}
+
 a {
     color: white;
     text-decoration: none;
@@ -71,6 +78,69 @@ body a:hover {
     clear: both;
 }
 
+.header-menu-search form {
+    position: absolute;
+    right: 31.5rem;
+    width: 18%;
+}
 
+.header-menu-search form input {
+    border: 1px solid transparent;
+    border-bottom: #fff;
+    border-bottom: 2px white solid;
+}
 
+input.header-search-field {
+    border: 1px white solid;
+    border-bottom: #fff;
+    background: #1b272c;
+    color: #fff;
+    height: 42px;
+    margin: 6px 0 3px auto;
+    padding: .5rem;
+    text-transform: uppercase;
+    display: unset;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 14px;
 
+}
+
+input.header-search-field * {
+    border: 1px solid transparent;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-pagination-bullet {
+    background: black;
+}

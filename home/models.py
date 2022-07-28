@@ -3,13 +3,20 @@ from slugify import slugify
 from smart_selects.db_fields import GroupedForeignKey
 
 from modelcluster.fields import ParentalKey
+from wagtail.blocks import PageChooserBlock
+from wagtail.fields import StreamField
+from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.models import Page
-from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from instance_selector.edit_handlers import InstanceSelectorPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 
-from wagtailautocomplete.edit_handlers import AutocompletePanel
+
+class BannerMeta(models.Model):
+    image_banner = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True,
+                                     related_name='+', verbose_name='Изображение для баннера')
+
+    class Meta:
+        abstract = True
 
 
 class Category(Page):
@@ -92,3 +99,22 @@ class Rubric(Page):
 class HomePage(Page):
     subpage_types = ['home.Category', 'brand.BrandIndex', 'product.ProductIndex']
     parent_page_types = []
+    banner = StreamField([
+        ('brand_banner', PageChooserBlock(help_text='Баннер брендов', page_type=['brand.Brand'])),
+        ('product_banner', PageChooserBlock(help_text='Баннер товаров', page_type=['product.Product']))
+    ], null=True, blank=True, verbose_name='Верхний баннер')
+    brand_logo = StreamField([
+        ('brand_banner', PageChooserBlock(help_text='Лого брендов', page_type=['brand.Brand']))
+    ], null=True, blank=True)
+
+    content_panels = [
+        FieldPanel('title'),
+        StreamFieldPanel('banner'),
+        StreamFieldPanel('brand_logo')
+    ]
+
+    def get_context(self, request, *args, **kwargs):
+        from brand.models import Brand
+        context = super().get_context(request, *args, **kwargs)
+        context['brands'] = Brand.objects.live().values('image', 'slug')[:10]
+        return context

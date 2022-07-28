@@ -19,6 +19,7 @@
 
     {# Global stylesheets #}
     <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/e_shop.css' %}">
     <link rel="stylesheet" href="{% static 'js/libs/bootstrap-5.2.0/css/bootstrap-reboot.min.css' %}">
     <link rel="stylesheet" href="{% static 'js/libs/bootstrap-5.2.0/css/bootstrap-grid.min.css' %}">
@@ -45,6 +46,9 @@
         </div>
     </div>
 {% endblock header %}
+{% block content %}
+
+{% endblock content %}
 
 {# Global javascript #}
 <script type="text/javascript" src="{% static 'js/e_shop.js' %}"></script>

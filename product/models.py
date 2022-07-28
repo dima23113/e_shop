@@ -10,10 +10,10 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.blocks import RichTextBlock
 
 from brand.models import Brand
-from home.models import Category, Subcategory, Rubric
+from home.models import Category, Subcategory, Rubric, BannerMeta
 
 
-class Product(Page):
+class Product(BannerMeta, Page):
     subpage_types = []
     parent_page_types = ['product.ProductIndex']
     category_fk = ParentalKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Категория',
@@ -54,7 +54,8 @@ class Product(Page):
         FieldPanel('category_fk'),
         FieldPanel('subcategory_fk'),
         FieldPanel('rubric_fk'),
-        FieldPanel('brand_fk')
+        FieldPanel('brand_fk'),
+        FieldPanel('image_banner')
 
     ]
 
@@ -70,6 +71,6 @@ class Product(Page):
         return super().save(*args, **kwargs)
 
 
-class ProductIndex(Page):
+class ProductIndex(BannerMeta, Page):
     subpage_types = ['product.Product']
     parent_page_types = ['home.HomePage']
