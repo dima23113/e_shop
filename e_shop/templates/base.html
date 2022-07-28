@@ -53,6 +53,22 @@
 {# Global javascript #}
 <script type="text/javascript" src="{% static 'js/e_shop.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    window.onscroll = function () {
+        myFunction()
+    };
+
+    var navbar = document.getElementById("menubar");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+</script>
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
 {% endblock %}

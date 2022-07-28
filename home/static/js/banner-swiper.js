@@ -17,8 +17,8 @@ var swiper = new Swiper(".banner", {
 
 
 var swiper1 = new Swiper(".brandLogo", {
-        slidesPerView: 3,
-        spaceBetween: 0,
+        slidesPerView: 6,
+        spaceBetween: 5,
         slidesPerGroup: 3,
         autoplay: {
           delay: 5000,

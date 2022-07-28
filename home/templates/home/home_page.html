@@ -17,7 +17,7 @@
                         <div class="swiper-wrapper">
                             {% for banner in page.banner %}
                                 {% if banner.block_type == 'brand_banner' %}
-                                    {% image banner.value.brand.image_banner original as banner_photo %}
+                                    {% image banner.value.brand.image_banner height-560 as banner_photo %}
                                     <div class="swiper-slide"><a href="{{ banner.value.url }}"><img
                                             src="{{ banner_photo.url }}"></a>
                                     </div>
@@ -43,13 +43,11 @@
                     <div class="swiper brandLogo col-md-8 col-sm-8 col-lg-8">
                         <div class="swiper-wrapper">
                             {% for logo in page.brand_logo %}
-                                {% image logo.value.brand.image original as logo_photo %}
+                                {% image logo.value.brand.image width-250 height-250 as logo_photo %}
                                 <div class="swiper-slide"><a href="{{ logo.value.url }}"><img
                                         src="{{ logo_photo.url }}"></a></div>
                             {% endfor %}
                         </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
                         <div class="swiper-pagination"></div>
                     </div>
                     <div class="col-md-2 col-sm-2 col-lg-2"></div>

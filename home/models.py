@@ -106,7 +106,6 @@ class HomePage(Page):
     brand_logo = StreamField([
         ('brand_banner', PageChooserBlock(help_text='Лого брендов', page_type=['brand.Brand']))
     ], null=True, blank=True)
-
     content_panels = [
         FieldPanel('title'),
         StreamFieldPanel('banner'),

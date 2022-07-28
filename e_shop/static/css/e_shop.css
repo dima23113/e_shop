@@ -123,7 +123,7 @@ input.header-search-field * {
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    display: flex;
+    display: inline-flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     -webkit-justify-content: center;
@@ -143,4 +143,15 @@ input.header-search-field * {
 
 .swiper-pagination-bullet {
     background: black;
+}
+
+.swiper-slide a {
+    width: 100%;
+    max-height: 560px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
