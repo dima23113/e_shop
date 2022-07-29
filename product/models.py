@@ -10,7 +10,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.blocks import RichTextBlock
 
 from brand.models import Brand
-from home.models import Category, Subcategory, Rubric, BannerMeta
+from home.models import Category, Rubric, BannerMeta
 
 
 class Product(BannerMeta, Page):
@@ -18,8 +18,6 @@ class Product(BannerMeta, Page):
     parent_page_types = ['product.ProductIndex']
     category_fk = ParentalKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Категория',
                               related_name='category_products')
-    subcategory_fk = ParentalKey(Subcategory, on_delete=models.SET_NULL, null=True, blank=True,
-                                 verbose_name='Подкатегория', related_name='subcategory_products')
     rubric_fk = ParentalKey(Rubric, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Рубрика',
                             related_name='rubric_products')
     brand_fk = ParentalKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Бренд',
@@ -52,10 +50,11 @@ class Product(BannerMeta, Page):
         FieldPanel('price_discount'),
         FieldPanel('sale'),
         FieldPanel('category_fk'),
-        FieldPanel('subcategory_fk'),
         FieldPanel('rubric_fk'),
         FieldPanel('brand_fk'),
-        FieldPanel('image_banner')
+        FieldPanel('image_banner'),
+        FieldPanel('slogan'),
+        InlinePanel('product_size', label='Размеры товара')
 
     ]
 
@@ -71,6 +70,38 @@ class Product(BannerMeta, Page):
         return super().save(*args, **kwargs)
 
 
+class ProductSize(models.Model):
+    size = models.CharField(max_length=256, verbose_name='Размер товара')
+    qty = models.IntegerField(verbose_name='Количество')
+    product = ParentalKey(Product, on_delete=models.CASCADE, verbose_name='Товар', related_name='product_size')
+
+    class Meta:
+        verbose_name = 'Размер'
+        verbose_name_plural = 'Размеры'
+
+    def __str__(self):
+        return f'Размер для товара {self.product}'
+
+
+class ProductReview(models.Model):
+    product = ParentalKey(Product, on_delete=models.CASCADE, verbose_name='Товар', related_name='product_review')
+    headline = models.CharField(max_length=50, verbose_name='Заголовок отзыва', help_text='Заголовок к отзыву')
+    review = models.TextField(max_length=500, verbose_name='Отзыв на товар')
+    stars = models.IntegerField('Оценка товара')
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self):
+        return self.headline
+
+
 class ProductIndex(BannerMeta, Page):
     subpage_types = ['product.Product']
     parent_page_types = ['home.HomePage']
+
+    content_panels = [
+        FieldPanel('image_banner'),
+        FieldPanel('slogan')
+    ]

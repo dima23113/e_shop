@@ -27,9 +27,11 @@ INSTALLED_APPS = [
     "product",
     "brand",
     "home",
+    "cart",
     "search",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.modeladmin",
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
@@ -170,3 +172,5 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+CART_SESSION_ID = 'cart'

@@ -25,7 +25,8 @@ class Brand(BannerMeta, Page):
         FieldPanel('name'),
         FieldPanel('description'),
         ImageChooserPanel('image'),
-        FieldPanel('image_banner')
+        FieldPanel('image_banner'),
+        FieldPanel('slogan')
     ]
 
     def __str__(self):

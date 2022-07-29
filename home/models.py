@@ -14,13 +14,35 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, Stre
 class BannerMeta(models.Model):
     image_banner = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True,
                                      related_name='+', verbose_name='Изображение для баннера')
+    slogan = models.CharField(max_length=256, verbose_name='Слоган к баннеру', null=True, blank=True)
 
     class Meta:
         abstract = True
 
 
-class Category(Page):
-    subpage_types = ['home.Subcategory']
+class CategoriesMeta(models.Model):
+    description = models.TextField(verbose_name='Описанние категории', null=True, blank=True)
+    logo = models.ForeignKey('wagtailimages.Image',
+                             on_delete=models.SET_NULL,
+                             null=True,
+                             blank=True,
+                             related_name='+',
+                             verbose_name='Лого категории'
+                             )
+    category_banner = models.ForeignKey('wagtailimages.Image',
+                                        on_delete=models.SET_NULL,
+                                        null=True,
+                                        blank=True,
+                                        related_name='+',
+                                        verbose_name='Баннер категории'
+                                        )
+
+    class Meta:
+        abstract = True
+
+
+class Category(CategoriesMeta, Page):
+    subpage_types = ['home.Rubric']
     parent_page_types = ['home.HomePage']
 
     name = models.CharField(max_length=256, verbose_name='Название категории')
@@ -28,7 +50,7 @@ class Category(Page):
         FieldPanel('title'),
         FieldPanel('name'),
 
-        InlinePanel('subcategories', label='')
+        InlinePanel('rubrics', label='')
     ]
 
     def __str__(self):
@@ -44,43 +66,20 @@ class Category(Page):
         verbose_name_plural = 'Категории'
 
 
-class Subcategory(Page):
-    subpage_types = ['home.Rubric']
+class Rubric(CategoriesMeta, Page):
     parent_page_types = ['home.Category']
 
-    name = models.CharField(max_length=256, verbose_name='Название подкатегории')
-    category_fk = ParentalKey(Category, related_name='subcategories',
-                              on_delete=models.SET_NULL, verbose_name='Категория', null=True, blank=True)
+    name = models.CharField(max_length=256, verbose_name='Рубрика')
+    category_fk = ParentalKey(Category, related_name='rubrics',
+                              on_delete=models.SET_NULL,
+                              verbose_name='Категория', null=True, blank=True)
     content_panels = [
         FieldPanel('title'),
         FieldPanel('name'),
-        PageChooserPanel('category_fk')
-
-    ]
-
-    class Meta:
-        verbose_name = 'Подкатегория'
-        verbose_name_plural = 'Подкатегории'
-
-    def __str__(self):
-        return f'{self.category_fk.name} - {self.name}'
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
-
-class Rubric(Page):
-    parent_page_types = ['home.Subcategory']
-
-    name = models.CharField(max_length=256, verbose_name='Тип подкатегории')
-    subcategory_fk = ParentalKey(Subcategory, related_name='rubrics',
-                                 on_delete=models.SET_NULL,
-                                 verbose_name='Рубрика', null=True, blank=True)
-    content_panels = [
-        FieldPanel('title'),
-        FieldPanel('name'),
-        PageChooserPanel('subcategory_fk')
+        PageChooserPanel('category_fk'),
+        FieldPanel('description'),
+        FieldPanel('logo'),
+        FieldPanel('category_banner')
 
     ]
 
@@ -89,7 +88,7 @@ class Rubric(Page):
         verbose_name_plural = 'Рубрики'
 
     def __str__(self):
-        return f'{self.subcategory_fk.name} - {self.name}'
+        return f'{self.category_fk.name} - {self.name}'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -106,10 +105,18 @@ class HomePage(Page):
     brand_logo = StreamField([
         ('brand_banner', PageChooserBlock(help_text='Лого брендов', page_type=['brand.Brand']))
     ], null=True, blank=True)
+    banner_bottom = StreamField([
+        ('brand_banner_bottom', PageChooserBlock(help_text='Нижний баннер брендов', page_type=['brand.Brand'])),
+        ('product_banner_bottom', PageChooserBlock(help_text='Нижний банер товара', page_type=['product.Product'])),
+        ('products_banner_bottom',
+         PageChooserBlock(help_text='Нижний банер товаров', page_type=['product.ProductIndex']))
+    ], null=True, blank=True, verbose_name='Нижний баннер')
+
     content_panels = [
         FieldPanel('title'),
         StreamFieldPanel('banner'),
-        StreamFieldPanel('brand_logo')
+        StreamFieldPanel('brand_logo'),
+        StreamFieldPanel('banner_bottom')
     ]
 
     def get_context(self, request, *args, **kwargs):
