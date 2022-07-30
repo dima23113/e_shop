@@ -1,0 +1,85 @@
+.auth-registration {
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform .2s linear;
+    backface-visibility: hidden;
+    background-image: url("../img/background.jpg");
+    width: 100%;
+    height: 100%;
+}
+
+.login {
+    margin-top: 70px;
+    flex-basis: 90%;
+    background-color: #1b272c;
+}
+
+.login * {
+    padding-left: 0;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    margin: 2px 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 22px;
+    color: white;
+}
+
+.block-a {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.block-a * {
+    text-align: left;
+}
+
+.block-a input {
+    border: 1px solid;
+    color: black;
+}
+
+.block-submit input {
+    text-decoration: none;
+    border: 1px solid black;
+    color: white;
+    background-color: #2eba9b;
+}
+
+
+.block-submit {
+    padding-right: 15px;
+    padding-left: 15px;
+    color: white;
+}
+
+.block-a h1 {
+    text-transform: uppercase;
+}
+
+.block-link-a-left {
+    text-align: left;
+    color: white;
+    text-decoration: underline;
+    float: left;
+    padding-left: 15px;
+}
+
+.block-link-a-right {
+    text-align: right;
+    color: white;
+    text-decoration: underline;
+    padding-right: 15px;
+}
+
+.block-link {
+    display: inline-flex;
+    padding: 0;
+}
+
+.block-link-a-left:hover, .block-link-a-right:hover {
+    color: black
+}

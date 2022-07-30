@@ -18,7 +18,8 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path('chaining/', include('smart_selects.urls')),
-    path('__debug__/', include('debug_toolbar.urls'))
+    path('__debug__/', include('debug_toolbar.urls')),
+    path('account/', include('account.urls', namespace='account'))
 ]
 
 if settings.DEBUG:

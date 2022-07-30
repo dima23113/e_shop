@@ -151,7 +151,10 @@ input.header-search-field * {
 }
 
 .sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 0;
+    padding-bottom: 0;
 }

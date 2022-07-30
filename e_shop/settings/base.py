@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "brand",
     "home",
     "cart",
+    "account",
     "search",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -174,3 +175,8 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CART_SESSION_ID = 'cart'
+AUTH_USER_MODEL = 'account.CustomUser'
+
+WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'account/login.html'
+
+LOGIN_REDIRECT_URL = '/'

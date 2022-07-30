@@ -102,6 +102,7 @@ class ProductIndex(BannerMeta, Page):
     parent_page_types = ['home.HomePage']
 
     content_panels = [
+        FieldPanel('title'),
         FieldPanel('image_banner'),
         FieldPanel('slogan')
     ]
