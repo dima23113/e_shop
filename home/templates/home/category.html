@@ -1,20 +1,134 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}{{ page.name }}{% endblock %}
 
 {% block extra_css %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/filter.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
 {% endblock extra_css %}
 
 {% block content %}
-
-    <p>{{ page.name }}</p>
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-
+    <div class="listing_header-content">
+        <div class="listing-breadcrumb-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                    <div class="breadcrumb-header col-sm-8 col-md-8 col-lg-8"></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="listing-header-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                    <div class="listing-header col-sm-3 col-md-3 col-lg-3">
+                        <div class="listing-header-logo">
+                            {% image page.logo width-90 height-90 as logo %}
+                            <img src="{{ logo.url }}">
+                        </div>
+                        <h1 class="listing-header-name">{{ page.name }}</h1>
+                        <div class="listing-header-count"></div>
+                        <div class="category-description">
+                            <div class="listing-seo-text">
+                                <span>{{ page.description }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="listing-header-banner col-sm-5 col-md-5 col-lg-5">
+                        {% image page.category_banner width-760 as banner %}
+                        <img src="{{ banner.url }}">
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="listing-pagination">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6"></div>
+                <div class="pagination col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-4 col-md-4 col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="listing-menu-inline">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="listing-options-all col-sm-8 col-md-8 col-lg-8">
+                    <div class="listing-options">
+                        <div class="listing-option" id="category">
+                            <div class="listing-option-label">Категория</div>
+                            <div class="input-box-wrapper">
+                                <div class="box">
+                                    <input type="checkbox" class="checkbox-options" id="">
+                                    <label for=""></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-option" id="category">
+                            <div class="listing-option-label">Бренды</div>
+                            <div class="input-box-wrapper">
+                                <div class="box">
+                                    <input type="checkbox" class="checkbox-options" id="">
+                                    <label for=""></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-option" id="category">
+                            <div class="listing-option-label">Размеры</div>
+                            <div class="input-box-wrapper">
+                                <div class="box">
+                                    <input type="checkbox" class="checkbox-options" id="">
+                                    <label for=""></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-option" id="category">
+                            <div class="listing-option-label">Цена</div>
+                            <div class="input-box-wrapper">
+                                <div class="box">
+                                    <input type="checkbox" class="checkbox-options" id="">
+                                    <label for=""></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-option" id="category">
+                            <div class="listing-option-label">Сортировка</div>
+                            <div class="input-box-wrapper">
+                                <div class="box">
+                                    <input type="checkbox" class="checkbox-options" id="">
+                                    <label for=""></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="listing" id="listing">
+        <div class="listing-container">
+            <div class="listing-product">
+                <a href="#" title="">
+                    <div class="listing-product-container">
+                    </div>
+                    <div class="listing-product-brand"></div>
+                    <div class="listing-product-name"></div>
+                    <div class="listing-product-bottom">
+                        <div class="listing-product-price">
+                            <div class="listing-product-price-regular">
+                            </div>
+                        </div>
+                        <div class="listing-product-rating"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

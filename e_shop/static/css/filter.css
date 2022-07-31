@@ -1,0 +1,71 @@
+.listing-header-container * {
+    font-family: 'Rubik Mono One', sans-serif;
+}
+
+.listing-header-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 25px;
+    min-height: 300px
+}
+
+.listing-header-name {
+    font-size: 25px;
+    letter-spacing: 8px;
+}
+
+.listing-option {
+    position: relative;
+    flex-grow: 1;
+    flex-basis: auto;
+    margin-right: 10px;
+}
+
+.listing-options {
+    display: flex;
+}
+
+.listing-option-label {
+    cursor: pointer;
+    background: #f1f5f7;
+    transition: background-color .4s;
+    user-select: none;
+    white-space: normal;
+    font-family: 'Rubik Mono One', sans-serif;
+    text-align: center;
+}
+
+.input-box-wrapper {
+    visibility: hidden;
+}
+
+.listing-option * {
+    width: 100%;
+}
+
+.listing-header-banner {
+    width: 59%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    background-size: cover;
+    background-position: 100%;
+}
+
+.listing-header-container, .listing-header-banner::before {
+    content: "";
+    left:0;
+    top:0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,hsla(0,0%,100%,.85),hsla(0,0%,100%,0) 70%);
+}
+
+.listing-seo-text span {
+    font-family: 'Rubik', sans-serif;
+}

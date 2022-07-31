@@ -49,7 +49,9 @@ class Category(CategoriesMeta, Page):
     content_panels = [
         FieldPanel('title'),
         FieldPanel('name'),
-
+        FieldPanel('description'),
+        FieldPanel('logo'),
+        FieldPanel('category_banner'),
         InlinePanel('rubrics', label='')
     ]
 
