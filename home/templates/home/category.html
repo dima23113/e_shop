@@ -49,19 +49,21 @@
     <div class="listing-pagination">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-6"></div>
+                <div class="col-sm-8 col-md-8 col-lg-8"></div>
                 <div class="pagination col-sm-2 col-md-2 col-lg-2">
-                    {% if products.has_other_pages %}
-                        {% for page in products.paginator.page_range %}
-                            {% if products.number == page %}
-                                <a class="paginator-current-link" href="?page={{ page }}">{{ page }}</a>
-                            {% else %}
-                                <a class="paginator-link" href="?page={{ page }}">{{ page }}</a>
-                            {% endif %}
-                        {% endfor %}
+                    {% if products.has_previous %}
+                        <a href="?page={{ products.previous_page_number }}"><img src="{% static "img/back.png" %}"
+                                                                                 alt="back"></a>
+                    {% endif %}
+                    <div class="pagination-label">
+                        Страница {{ products.number }}/{{ products.paginator.num_pages }}
+                    </div>
+                    {% if products.has_next %}
+                        <a href="?page={{ products.next_page_number }}"><img src="{% static "img/next.png" %}"
+                                                                             alt="next"></a>
                     {% endif %}
                 </div>
-                <div class="col-sm-4 col-md-4 col-lg-4"></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
             </div>
         </div>
     </div>

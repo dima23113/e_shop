@@ -132,3 +132,13 @@
 .swiper-button-next, .swiper-button-prev {
     top:90%;
 }
+
+.pagination-label {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 16px;
+}
+.pagination {
+    display: flex;
+    justify-content: right;
+}
+

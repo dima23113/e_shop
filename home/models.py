@@ -65,7 +65,7 @@ class Category(CategoriesMeta, Page):
     def get_context(self, request, *args, **kwargs):
         from product.models import Product
         context = super().get_context(request, *args, **kwargs)
-        paginator = Paginator(Product.objects.live(), 4)
+        paginator = Paginator(Product.objects.live(), 60)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['products'] = page_obj
