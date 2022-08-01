@@ -1,12 +1,11 @@
 from django.db import models
+from django.core.paginator import Paginator
+
 from slugify import slugify
-from smart_selects.db_fields import GroupedForeignKey
 
 from modelcluster.fields import ParentalKey
 from wagtail.blocks import PageChooserBlock
 from wagtail.fields import StreamField
-from wagtail.images.blocks import ImageChooserBlock
-
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 
@@ -62,6 +61,15 @@ class Category(CategoriesMeta, Page):
         slug = slugify(self.name)
         self.slug = f'category-{slug}'
         super().save(*args, **kwargs)
+
+    def get_context(self, request, *args, **kwargs):
+        from product.models import Product
+        context = super().get_context(request, *args, **kwargs)
+        paginator = Paginator(Product.objects.live(), 4)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['products'] = page_obj
+        return context
 
     class Meta:
         verbose_name = 'Категория'
