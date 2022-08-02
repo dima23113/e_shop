@@ -1,6 +1,6 @@
 from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
 
-from .models import Brand, BrandIndex
+from .models import Brand
 
 
 class BrandListAdmin(ModelAdmin):

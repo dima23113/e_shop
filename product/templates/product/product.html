@@ -6,11 +6,41 @@
 {% block body_class %}{{ page.name }}{% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
-
+    <div class="product-navigation-module">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="product-container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="swiper product-image-block col-sm-5 col-md-5 col-lg-5">
+                    <div class="swiper-wrapper">
+                        {% for img in page.image %}
+                            {% image img.value original as img %}
+                            <div class="swiper-slide"><img class="listing-product-image" src="{{ img.url }}"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="product-info-block col-sm-3 col-md-3 col-lg-3"></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block extra_js %}
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="{% static "js/swiper-product.js" %}"></script>
 {% endblock extra_js %}
