@@ -9,6 +9,7 @@
 .hardline {
     font-family: 'Rubik Mono One', sans-serif;
     font-size: 30px;
+    border-bottom: 3px solid black;
 }
 
 .description-section {
@@ -21,4 +22,42 @@
 
 .description-brand-page p {
     font-family: 'Rubik', sans-serif;
+}
+
+.brand-link, .brand-link:hover {
+    text-decoration: none;
+    color: black;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+}
+
+.symbol h5 {
+    font-size: 35px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.top-brands-navi {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-brands-navi li {
+    display: inline-block;
+}
+
+.ghost-button, .ghost-button:hover {
+    text-decoration: none;
+    color: black;
+    font-family: 'Rubik', sans-serif;
+    font-size: 30px;
+    cursor: pointer;
+    display: block;
+    margin: 0 0 8px;
+    padding: 6px 12px 3px ;
+    text-align: center;
+    border: 1px solid black;
+    background: #fff;
+    transition: background-color .3s ease-out;
 }

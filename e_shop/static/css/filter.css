@@ -105,6 +105,7 @@
     font-family: 'Rubik Mono One', sans-serif;
     font-size: 17px;
 }
+
 .listing-product a:hover {
     color: black;
     text-decoration: none;
@@ -129,16 +130,21 @@
     color: black;
     font-weight: bold;
 }
+
 .swiper-button-next, .swiper-button-prev {
-    top:90%;
+    top: 90%;
 }
 
 .pagination-label {
     font-family: 'Rubik Mono One', sans-serif;
     font-size: 16px;
 }
+
 .pagination {
     display: flex;
     justify-content: right;
 }
 
+.listing-header-logo, .listing-header-name, .listing-seo-text {
+    text-align: center;
+}

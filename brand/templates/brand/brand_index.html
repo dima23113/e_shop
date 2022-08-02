@@ -54,6 +54,47 @@
             </div>
         </div>
     </div>
+    <div class="all-brands">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="all-brands-symbol col-sm-8 col-md-8 col-lg-8">
+                    <h3 class="hardline">Все бренды</h3>
+                    <div>Лучшие и самые известные бренды скейтбордов и уличной одежды — все в одном списке!</div>
+                    <br>
+                    <ul class="top-brands-navi">
+                        {% regroup brands by symbol as brand_list %}
+                        {% for symbol in brand_list %}
+                            <li class="symbol-tp"><a class="ghost-button" href="#{{ symbol.grouper }}">{{ symbol.grouper }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="brand-list-name">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="brand-list-by-char col-sm-8 col-md-8 col-lg-8">
+                    {% regroup brands by symbol as brand_list %}
+                    <div class="list-brand">
+                        {% for symbol in brand_list %}
+                            <div class="symbol">
+                                <a id="{{ symbol.grouper }}" name="{{ symbol.grouper }}"></a>
+                                <h5>{{ symbol.grouper }}</h5>
+                                {% for sl in symbol.list %}
+                                    <a class="brand-link" href="{% pageurl sl.page %}">{{ sl.name|upper }} ({{ sl.qty }})</a>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}
 

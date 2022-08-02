@@ -9,6 +9,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page
 
 from home.models import BannerMeta
+from .services import sort_brand_list
 
 
 class Brand(BannerMeta, Page):
@@ -57,3 +58,8 @@ class BrandIndex(Page):
         FieldPanel('description'),
         StreamFieldPanel('top_brands')
     ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['brands'] = sort_brand_list()
+        return context
