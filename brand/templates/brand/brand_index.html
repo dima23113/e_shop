@@ -1,10 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
 
-</body>
-</html>
+{% block body_class %}{{ page.name }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/brand.css' %}">
+{% endblock extra_css %}
+{% block content %}
+
+
+    <div class="description-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="description-brand-page col-sm-8 col-md-8 col-lg-8">
+                    <h1 class="hardline">Популярные бренды скейтбордов и уличной одежды</h1>
+                    {{ page.description|richtext }}
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="top-brands">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="top-brand-list-hardline col-sm-8 col-md-8 col-lg-8">
+                    <h2 class="hardline">Топ бренды</h2>
+                    <div>Это подборка лучших и самых известных брендов скейтборда, скейт одежды и уличной одежды на
+                        SkateHell. Нажимайте на логотипы брендов, чтобы найти все товары ваших любимых брендов в
+                        магазине скейтбордов SkateHell.
+                    </div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="brand-list-top col-sm-8 col-md-8 col-lg-8">
+                    <div class="brand-list">
+                        {% for brand in page.top_brands %}
+                            <div class="topbrands-entry">
+                                {% image brand.value.image width-200 height-200 as img %}
+                                <a href="{{ brand.value.slug }}"><img src="{{ img.url }}"></a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+{% endblock extra_js %}

@@ -1,5 +1,6 @@
 {% load navigation_tags wagtailcore_tags %}
 {% get_site_root as site_root %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% for menuitem in menuitems %}
     <div class="header-menu-category" data-show-cat="{{ menuitem.title }}">

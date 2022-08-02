@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.paginator import Paginator
+from django.shortcuts import render
 
 from slugify import slugify
 
@@ -8,6 +9,7 @@ from wagtail.blocks import PageChooserBlock
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 
 class BannerMeta(models.Model):
@@ -40,7 +42,7 @@ class CategoriesMeta(models.Model):
         abstract = True
 
 
-class Category(CategoriesMeta, Page):
+class Category(RoutablePageMixin, CategoriesMeta, Page):
     subpage_types = ['home.Rubric']
     parent_page_types = ['home.HomePage']
 
@@ -62,14 +64,21 @@ class Category(CategoriesMeta, Page):
         self.slug = f'category-{slug}'
         super().save(*args, **kwargs)
 
-    def get_context(self, request, *args, **kwargs):
-        from product.models import Product
-        context = super().get_context(request, *args, **kwargs)
-        paginator = Paginator(Product.objects.live(), 60)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context['products'] = page_obj
-        return context
+    def serve(self, request, *args, **kwargs):
+        if request.method == 'GET':
+            print(self.slug)
+            from product.models import Product
+            context = super().get_context(request, *args, **kwargs)
+            paginator = Paginator(Product.objects.live().filter(category_fk=self.id, available=True), 60)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context['products'] = page_obj
+            return render(request, 'home/category.html', context=context)
+
+    '''@route(r'^category/(?P<category>[-\w]+)/$')
+    def get_products(self, request, category, *args, **kwargs):
+        print(request, category, args, kwargs)
+        return self.render(request)'''
 
     class Meta:
         verbose_name = 'Категория'
@@ -105,7 +114,7 @@ class Rubric(CategoriesMeta, Page):
         return super().save(*args, **kwargs)
 
 
-class HomePage(Page):
+class HomePage(RoutablePageMixin, Page):
     subpage_types = ['home.Category', 'brand.BrandIndex', 'product.ProductIndex']
     parent_page_types = []
     banner = StreamField([
@@ -128,9 +137,3 @@ class HomePage(Page):
         StreamFieldPanel('brand_logo'),
         StreamFieldPanel('banner_bottom')
     ]
-
-    def get_context(self, request, *args, **kwargs):
-        from brand.models import Brand
-        context = super().get_context(request, *args, **kwargs)
-        context['brands'] = Brand.objects.live().values('image', 'slug')[:10]
-        return context

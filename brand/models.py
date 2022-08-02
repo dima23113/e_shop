@@ -1,7 +1,10 @@
 from django.db import models
+
 from slugify import slugify
-from wagtail.admin.panels import FieldPanel
-from wagtail.fields import RichTextField
+
+from wagtail.admin.panels import FieldPanel, StreamFieldPanel
+from wagtail.blocks import PageChooserBlock
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page
 
@@ -44,3 +47,13 @@ class Brand(BannerMeta, Page):
 class BrandIndex(Page):
     subpage_types = ['brand.Brand']
     parent_page_types = ['home.HomePage']
+    description = RichTextField(verbose_name='Описание страницы брендов', null=True, blank=True)
+    top_brands = StreamField([
+        ('top_brands', PageChooserBlock(help_text='Выбор топ брендов', page_type=['brand.Brand']))
+    ], null=True, blank=True)
+
+    content_panels = [
+        FieldPanel('title'),
+        FieldPanel('description'),
+        StreamFieldPanel('top_brands')
+    ]

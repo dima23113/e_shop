@@ -1,0 +1,24 @@
+.brand-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.hardline {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 30px;
+}
+
+.description-section {
+    margin-top: 20px;
+}
+
+.top-brand-list-hardline div {
+    font-family: 'Rubik', sans-serif;
+}
+
+.description-brand-page p {
+    font-family: 'Rubik', sans-serif;
+}
