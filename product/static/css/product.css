@@ -1,4 +1,37 @@
-.listing-product-image {
-    width: 100%;
-    height: 50%;
+
+.product-image-block {
+    width: 615px;
+}
+
+
+.product-title-headline {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 25px;
+}
+
+.product-title small {
+    font-family: 'Rubik', sans-serif;
+    color: #6c757a;
+}
+
+.breadcrumb-product *, .breadcrumb-product *:hover {
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.breadcrumb-product span a:hover {
+    border-bottom: 1px solid black;
+}
+
+
+.breadcrumb-product span::before {
+    content: '/';
+    color: black;
+
+}
+
+.breadcrumb-product span:first-child::before {
+    content: "";
 }

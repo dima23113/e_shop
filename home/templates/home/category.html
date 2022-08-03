@@ -6,7 +6,6 @@
 
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/filter.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
 {% endblock extra_css %}
 
 {% block content %}
@@ -145,7 +144,7 @@
                                     <div class="swiper ProductCart">
                                         <div class="swiper-wrapper">
                                             {% for img in product.image %}
-                                                {% image img.value original as product_img %}
+                                                {% image img.value width-300 height-300 as product_img %}
                                                 <div class="swiper-slide">
                                                     <img class="listing-product-image" src="{{ product_img.url }}">
                                                 </div>

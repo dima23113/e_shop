@@ -15,6 +15,23 @@
             <div class="row">
                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
                 <div class="col-sm-8 col-md-8 col-lg-8">
+                    <div class="breadcrumb-product">
+                        <span>
+                            <a href="{% url 'wagtail_serve' '' %}">Главная</a>
+                        </span>
+                        <i></i>
+                        <span>
+                            <a href="{% pageurl page.category_fk %}">{{ page.category_fk.name }}</a>
+                        </span>
+                        <i></i>
+                        <span>
+                            <a href="{% pageurl page.rubric_fk %}">{{ page.rubric_fk.name }}</a>
+                        </span>
+                        <i></i>
+                        <span>
+                            <a href="{% pageurl page %}">{{ page.name }}</a>
+                        </span>
+                    </div>
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
             </div>
@@ -24,16 +41,35 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
-                <div class="swiper product-image-block col-sm-5 col-md-5 col-lg-5">
-                    <div class="swiper-wrapper">
-                        {% for img in page.image %}
-                            {% image img.value original as img %}
-                            <div class="swiper-slide"><img class="listing-product-image" src="{{ img.url }}"></div>
-                        {% endfor %}
+                <div class="images-product col-sm-4 col-md-4 col-lg-4">
+                    <div class="swiper product-image-block">
+                        <div class="swiper-wrapper">
+                            {% for img in page.image %}
+                                {% image img.value original as img %}
+                                <div class="swiper-slide"><img class="listing-product-image" src="{{ img.url }} "></div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination"></div>
                     </div>
-                    <div class="swiper-pagination"></div>
                 </div>
-                <div class="product-info-block col-sm-3 col-md-3 col-lg-3"></div>
+                <div class="product-info-block col-sm-4 col-md-4 col-lg-4">
+                    <div class="product-info">
+                        <div class="product-brand-logo">
+                            <div class="brand-logo">
+                                <a href="{% pageurl page.brand_fk %}">
+                                    {% image page.brand_fk.image width-200 height-200 format-webp-lossless as img %}
+                                    <img src="{{ img.url }}">
+                                </a>
+                            </div>
+                        </div>
+                        <div id="product-module-title">
+                            <div class="product-title">
+                                <h1 class="product-title-headline">{{ page.name }}</h1>
+                                <small>Артикул: {{ page.article }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
             </div>
         </div>
