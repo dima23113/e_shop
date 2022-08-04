@@ -2,11 +2,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $('#add-to-cart').click(function () {
         let size = get_size()
-        console.log(size)
         if (size === 'undefined') {
 
         } else {
-
+            $.ajax({
+                data: {'size': size},
+                url: './add-to-cart/',
+                method: 'get',
+                success: function (response){
+                    console.log(response)
+                }
+            })
         }
     })
 })

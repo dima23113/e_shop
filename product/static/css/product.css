@@ -77,3 +77,8 @@
     border: 1px red solid;
 
 }
+
+
+.images-product {
+    display: inline-flex;
+}

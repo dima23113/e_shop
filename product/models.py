@@ -1,19 +1,20 @@
 from django.db import models
+from django.http import JsonResponse
+
 from slugify import slugify
 
 from modelcluster.fields import ParentalKey
-from wagtail.images.edit_handlers import ImageChooserPanel
-
 from wagtail.models import Page, StreamField
-from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.blocks import RichTextBlock
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from brand.models import Brand
 from home.models import Category, Rubric, BannerMeta
 
 
-class Product(BannerMeta, Page):
+class Product(RoutablePageMixin, BannerMeta, Page):
     subpage_types = []
     parent_page_types = ['product.ProductIndex']
     category_fk = ParentalKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Категория',
@@ -73,6 +74,15 @@ class Product(BannerMeta, Page):
         context = super().get_context(request, args, kwargs)
         context['sizes'] = ProductSize.objects.filter(product=self, qty__gte=1)
         return context
+
+    @route(r'^add-to-cart/')
+    def add_to_cart(self, request, *args, **kwargs):
+        from cart.cart import Cart
+        print(request.GET.get('size'), args, kwargs)
+        cart = Cart(request)
+        cart.add(product=self, qty=1, size=request.GET.get('size'), update_qty=False)
+        print(cart.cart)
+        return JsonResponse({'success': 'ok'})
 
 
 class ProductSize(models.Model):

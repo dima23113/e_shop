@@ -158,3 +158,24 @@ input.header-search-field * {
     border-bottom: 0;
     padding-bottom: 0;
 }
+
+.badge-qty, .likes-qty {
+    display: flex;
+    justify-content: center;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    background: red;
+    text-align: center;
+    color: white;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 13px;
+    position: absolute;
+}
+
+.header-menu-category a *{
+    display: inline-flex;
+
+}
