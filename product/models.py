@@ -69,6 +69,11 @@ class Product(BannerMeta, Page):
         self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, args, kwargs)
+        context['sizes'] = ProductSize.objects.filter(product=self, qty__gte=1)
+        return context
+
 
 class ProductSize(models.Model):
     size = models.CharField(max_length=256, verbose_name='Размер товара')

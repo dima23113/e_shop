@@ -68,6 +68,32 @@
                                 <small>Артикул: {{ page.article }}</small>
                             </div>
                         </div>
+                        <div class="product-price">
+                            <div class="price">Цена: {{ page.price }} Руб.</div>
+                        </div>
+                        <div class="product-size-section">
+                            <div class="size-headline">Размер:</div>
+                            <select id="product-size-chooser" class="product-size-chooser">
+                                <option value="" selected>Выберите размер</option>
+                                {% for size in sizes %}
+                                    <option value="{{ size.size }}" data-size="{{ size.size }}">{{ size.size }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="product-size-chooser-message">
+                        </div>
+                        <div class="product-add-to-cart">
+                            <button id="add-to-cart" class="add-to-cart">
+                                <img src="{% static 'img/shopping-cart.png' %}">
+                                Добавить в корзину
+                            </button>
+                        </div>
+                        <div class="product-add-to-fav">
+                            <button id="add-to-fav" class="add-to-fav">
+                                <img src="{% static 'img/heart24.png' %}">
+                                Добавить в избранное
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
@@ -79,4 +105,5 @@
 {% block extra_js %}
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="{% static "js/swiper-product.js" %}"></script>
+    <script src="{% static "js/add-to-cart.js" %}"></script>
 {% endblock extra_js %}

@@ -4,7 +4,7 @@
 }
 
 
-.product-title-headline {
+.product-title-headline, .product-price *, .size-headline {
     font-family: 'Rubik Mono One', sans-serif;
     font-size: 25px;
 }
@@ -34,4 +34,46 @@
 
 .breadcrumb-product span:first-child::before {
     content: "";
+}
+
+
+.product-size-chooser {
+    border-color: black;
+    background-color: white;
+    height: 41px;
+    -moz-appearance: none !important;
+    border-radius: 0;
+    border: 1px black solid;
+    font-family: 'Rubik', sans-serif;
+    width: 100%;
+    background-image: url("../img/download.png");
+    background-repeat: no-repeat;
+    background-position: 99%;
+}
+
+.add-to-cart {
+    cursor: pointer;
+    font-family: 'Rubik Mono One', sans-serif;
+    color: white;
+    background-color: #2eba9b;
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 10px;
+    height: 41px;
+}
+
+.add-to-fav {
+    cursor: pointer;
+    font-family: 'Rubik Mono One', sans-serif;
+    color: black;
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 10px;
+    height: 41px;
+    background-color: white;
+}
+
+.product-size-chooser-error {
+    border: 1px red solid;
+
 }
