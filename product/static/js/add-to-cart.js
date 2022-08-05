@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: {'size': size},
                 url: './add-to-cart/',
                 method: 'get',
-                success: function (response){
+                success: function (response) {
                     console.log(response)
+                    update_cart_qty()
                 }
             })
         }

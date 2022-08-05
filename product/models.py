@@ -112,7 +112,7 @@ class ProductReview(models.Model):
         return self.headline
 
 
-class ProductIndex(BannerMeta, Page):
+class ProductIndex(RoutablePageMixin, BannerMeta, Page):
     subpage_types = ['product.Product']
     parent_page_types = ['home.HomePage']
 
@@ -121,3 +121,9 @@ class ProductIndex(BannerMeta, Page):
         FieldPanel('image_banner'),
         FieldPanel('slogan')
     ]
+
+    @route(r'^get-cart-qty/')
+    def get_cart_qty(self, request, *args, **kwargs):
+        from cart.cart import Cart
+        cart = Cart(request)
+        return JsonResponse({'cart-qty': len(cart)})

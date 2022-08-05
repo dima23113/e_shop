@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from slugify import slugify

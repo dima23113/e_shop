@@ -51,10 +51,24 @@
 
 {% endblock content %}
 
-{# Global javascript #}
-<script type="text/javascript" src="{% static 'js/e_shop.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static "js/sticky-menu.js" %}"></script>
+<script type="text/javascript" src="{% static 'js/e_shop.js' %}"></script>
+<script>
+    function update_cart_qty() {
+        $.ajax({
+            url: '/products/get-cart-qty/',
+            method: 'get',
+            success: function (response) {
+                badge = document.getElementById('badge-qty')
+                badge.innerText = response['cart-qty']
+                console.log(response['cart-qty'])
+            }
+        })
+    }
+
+    update_cart_qty()
+</script>
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
 {% endblock %}
