@@ -176,6 +176,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CART_SESSION_ID = 'cart'
+RV_PRODUCT_SESSION_ID = 'rv_products'
 AUTH_USER_MODEL = 'account.CustomUser'
 
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'account/login.html'

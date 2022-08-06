@@ -99,6 +99,39 @@
                 <div class="col-sm-2 col-md-2 col-lg-2"></div>
             </div>
         </div>
+        <div class="product-description-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                    <div class="product-description col-sm-8 col-md-8 col-lg-8">
+                        {% for i in page.description %}
+                            <div class="{{ i.block_type }}">
+                                <h3 class="hardline">{{ i.block_type }}</h3>
+                                {{ i.value|richtext }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="recently-viewed-products">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    {% for item in rv_products %}
+                        {% with product=item.product %}
+                            {{ product.name }}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            </div>
+        </div>
     </div>
 {% endblock content %}
 

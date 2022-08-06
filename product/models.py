@@ -71,10 +71,13 @@ class Product(RoutablePageMixin, BannerMeta, Page):
         return super().save(*args, **kwargs)
 
     def get_context(self, request, *args, **kwargs):
+        from .recently_product import RvProduct
         context = super().get_context(request, args, kwargs)
         context['sizes'] = ProductSize.objects.filter(product=self, qty__gte=1)
+        context['rv_products'] = RvProduct(request)
         return context
 
+    #  написать метод для добавления товара в недавно просмотренное
     @route(r'^add-to-cart/')
     def add_to_cart(self, request, *args, **kwargs):
         from cart.cart import Cart
@@ -83,6 +86,12 @@ class Product(RoutablePageMixin, BannerMeta, Page):
         cart.add(product=self, qty=1, size=request.GET.get('size'), update_qty=False)
         print(cart.cart)
         return JsonResponse({'success': 'ok'})
+
+    @route(r'^add-to-recently-viewed/')
+    def add_to_recently_viewed(self, request, *args, **kwargs):
+        from .recently_product import RvProduct
+        product = RvProduct(request)
+        product.add(self)
 
 
 class ProductSize(models.Model):
