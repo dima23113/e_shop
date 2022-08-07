@@ -89,9 +89,11 @@ class Product(RoutablePageMixin, BannerMeta, Page):
 
     @route(r'^add-to-recently-viewed/')
     def add_to_recently_viewed(self, request, *args, **kwargs):
-        from .recently_product import RvProduct
-        product = RvProduct(request)
-        product.add(self)
+        if request.method == 'POST':
+            from .recently_product import RvProduct
+            product = RvProduct(request)
+            product.add(self)
+            return JsonResponse({'msg': 'ok'})
 
 
 class ProductSize(models.Model):
