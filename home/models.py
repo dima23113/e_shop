@@ -116,7 +116,7 @@ class Rubric(CategoriesMeta, Page):
 
 
 class HomePage(RoutablePageMixin, Page):
-    subpage_types = ['home.Category', 'brand.BrandIndex', 'product.ProductIndex']
+    subpage_types = ['home.Category', 'brand.BrandIndex', 'product.ProductIndex', 'cart.CartPage']
     parent_page_types = []
     banner = StreamField([
         ('brand_banner', PageChooserBlock(help_text='Баннер брендов', page_type=['brand.Brand'])),

@@ -1,5 +1,6 @@
 {% load navigation_tags %}
 {% load static %}
+{% load wagtailcore_tags %}
 
 
 <div class="header-menu-categories col-md-5 col-sm-5 col-lg-5">
@@ -27,7 +28,7 @@
         </a>
     </div>
     <div class="header-menu-category">
-        <a href="#">
+        <a href="{% slugurl 'cart' %}">
             <img src="{% static "img/shopping-cart.png" %}">
             <div class="badge-qty" id="badge-qty">
                 0
