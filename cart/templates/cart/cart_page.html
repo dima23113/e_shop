@@ -15,16 +15,71 @@
             <div class="col-sm-2 col-md-2 col-lg-2"></div>
             <div class="cart-progress col-sm-8 col-lg-8 col-md-8">
                 <div class="nice progress">
+                    <span class="meter"><a href="{% pageurl page %}">{{ page.title }}</a></span>
                     {% for link in page.get_children.live %}
-                        <span class="meter"><a href="{% pageurl link %}">{{ link.slug }}</a></span>
+                        <span class="meter"><a href="{% pageurl link %}">{{ link.title }}</a></span>
                     {% endfor %}
                 </div>
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2"></div>
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            <div class="cart-products col-sm-6 col-lg-6 col-md-6">
+                {% for cart_product in cart %}
+                    {% with product=cart_product.product %}
+                        <div class="cart-product" data-item-id="{{ product.id }}" data-quantity="{{ cart_product.qty }}"
+                             data-quantity-available="" data-price="{{ cart_product.total_price }}">
+                            <div class="cart-product-delete">
+                                <a class="js-product-delete" href="#"
+                                   data-product="{{ product.id }}" data-size="{{ cart_product.size }}"
+                                   id="{{ product.id }}">x</a>
+                            </div>
+                            <div class="cart-product-image">
+                                <a href="{% pageurl product %}">
+                                    {% image product.image.0.value width-150 height-150 as product_img %}
+                                    <img src="{{ product_img.url }}">
+                                </a>
+                            </div>
+                            <div class="cart-product-info">
+                                <div class="cart-product-title cart-title">
+                                    <a href="{% pageurl product %}">{{ product.title }}</a>
+                                </div>
+                                <div class="div class-product-number">
+                                    Артикул: {{ product.article }}
+                                </div>
+                                <div class="cart-product-size">
+                                    Размер: {{ cart_product.size }}
+                                </div>
+                                <div class="cart-product-price">
+                                    Цена: {{ product.price }} Руб.
+                                </div>
+                                <div class="cart-product-available">
+                                    Доступен
+                                </div>
+                            </div>
+                            <div class="cart-product-quantity">
+                                <button class="ghost-button icon-minus"><img src="{% static 'img/minus.png' %}">
+                                </button>
+                                <span class="cart-product-quantity-value">{{ cart_product.qty }}</span>
+                                <button class="ghost-button icon-plus"><img src="{% static 'img/plus.png' %}"></button>
+                            </div>
+                            <div class="cart-product-cost cart-cost">
+                                {{ cart_product.total_price }} Р
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+    </div>
+    </div>
 {% endblock content %}
 
 {% block extra_js %}
-
+    <script src="{% static 'js/cart.js' %}"></script>
 {% endblock extra_js %}

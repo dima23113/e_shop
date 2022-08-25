@@ -1,0 +1,97 @@
+.progress {
+    margin-left: 0;
+    border: none;
+    overflow: hidden;
+    display: flex;
+}
+
+.meter {
+    float: left;
+    padding: .5rem;
+    position: relative;
+    flex-grow: 1;
+    text-align: center;
+    background: #fff;
+    width: auto;
+}
+
+.meter a, .meter a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.progress .meter::after {
+    border-left-width: 116px;
+    border-color: #6c757a;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 2px solid black;
+    border-left: 70px solid black;
+    content: " ";
+    margin-right: 5px;
+    position: absolute;
+    top: 23px;
+    z-index: 1;
+}
+
+.progress .meter:last-child::after {
+    border: none;
+}
+
+.cart-product-image {
+    float: left;
+    justify-self: center;
+    margin-bottom: .5rem;
+    margin-right: .5rem;
+}
+
+.cart-product-title {
+    float: none;
+}
+
+.cart-product-title * {
+    text-decoration: none;
+    color: black;
+}
+
+.cart-product-title a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.cart-product-quantity {
+    width: 100%;
+    margin: 0;
+    clear: both;
+    float: left;
+    font-weight: 700;
+}
+
+.ghost-button {
+    display: inline-block;
+    padding: .5rem 1rem;
+    background: #f1f5f7;
+    cursor: pointer;
+    margin: 0 0 .5rem;
+    border: 1px solid black;
+}
+
+
+.cart-product {
+    display: grid;
+    -moz-box-align: center;
+    align-items: center;
+    grid-template-columns: 7.64% 15.43% 37.37% 19.44% 1fr;
+    background: #f6f6f6;
+    margin-bottom: 10px;
+}
+
+.cart-product-delete a, a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+.cart-product-delete {
+    text-align: center;
+}
