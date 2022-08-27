@@ -19,11 +19,12 @@ class Cart(object):
         product_id = str(product.id) + '-' + size
         if product_id not in self.cart:
             if product.price_discount is None:
-                self.cart['product_id'] = {
+                self.cart[product_id] = {
                     'qty': 0,
                     'price': str(product.price),
                     'size': size,
-                    'discount_price': str(product.price)
+                    'discount_price': str(product.price),
+                    'max_qty': s.qty
                 }
             else:
                 self.cart[product_id] = {
@@ -55,7 +56,10 @@ class Cart(object):
         products_id = self.cart.keys()
         product_id_lst = [product for product in products_id]
         for i in range(len(product_id_lst)):
-            self.cart[product_id_lst[i]]['product'] = Product.objects.get(id=product_id_lst[i].split('-')[0])
+            product_ = Product.objects.get(id=product_id_lst[i].split('-')[0])
+            self.cart[product_id_lst[i]]['product'] = product_
+            self.cart[product_id_lst[i]]['max_qty'] = \
+                product_.product_size.filter(size=self.cart[product_id_lst[i]]['size'])[0].qty
         for item in self.cart.values():
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['qty']
