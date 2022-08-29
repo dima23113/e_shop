@@ -31,7 +31,8 @@
                 {% for cart_product in cart %}
                     {% with product=cart_product.product %}
                         <div class="cart-product" data-item-id="{{ product.id }}" data-quantity="{{ cart_product.qty }}"
-                             data-quantity-available="{{ cart_product.max_qty }}" data-price="{{ cart_product.total_price }}">
+                             data-quantity-available="{{ cart_product.max_qty }}"
+                             data-price="{{ cart_product.total_price }}" data-size="{{ cart_product.size }}">
                             <div class="cart-product-delete">
                                 <a class="js-product-delete" href="#"
                                    data-product="{{ product.id }}" data-size="{{ cart_product.size }}"

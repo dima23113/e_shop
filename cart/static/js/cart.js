@@ -33,7 +33,45 @@ document.addEventListener('DOMContentLoaded', function () {
                         update_cart_qty()
                     }
                 })
-            })
+            });
+            $('.icon-minus').click(function () {
+                var product_count = Number($('.cart-product-quantity-value').text())
+                var product = $('.cart-product').data('item-id')
+                var size = $('.cart-product').data('size')
+                console.log(product)
+                if (product_count === 1) {
+                    console.log('ss');
+                } else {
+                    $.ajax({
+                        data: {'product': product + '-' + size, 'sign': '-', 'csrfmiddlewaretoken': csrftoken},
+                        url: './change-qty/',
+                        method: 'post',
+                        success: function (response) {
+                            product = $('.cart-product-quantity-value').html(response['qty'])
+                        }
+                    })
+                }
+            });
+            $('.icon-plus').click(function () {
+                var max_qty = Number($('.cart-product').data('quantity-available'))
+                var product_count = Number($('.cart-product-quantity-value').text())
+                var product = $('.cart-product').data('item-id')
+                var size = $('.cart-product').data('size')
+                if (product_count < max_qty) {
+                    $.ajax({
+                        data: {'product': product + '-' + size, 'sign': '+', 'csrfmiddlewaretoken': csrftoken},
+                        url: './change-qty/',
+                        method: 'post',
+                        success: function (response) {
+                            product = $('.cart-product-quantity-value').html(response['qty'])
+                        }
+                    })
+                } else {
+                }
+            });
+
         }
     )
 })
+
+
