@@ -24,7 +24,6 @@ class Cart(object):
                     'price': str(product.price),
                     'size': size,
                     'discount_price': str(product.price),
-                    'max_qty': s.qty
                 }
             else:
                 self.cart[product_id] = {
@@ -73,6 +72,9 @@ class Cart(object):
 
     def get_total_discount_price(self):
         return sum(Decimal(item['discount_price']) * item['qty'] for item in self.cart.values())
+
+    def get_item_total_price(self, price, qty):
+        return Decimal(price) * qty
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]

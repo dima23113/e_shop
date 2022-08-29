@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         method: 'post',
                         success: function (response) {
                             product = $('.cart-product-quantity-value').html(response['qty'])
+                            $('.cart-product-cost').html(response['total_cost'] + 'Руб.')
+                            update_cart_qty()
                         }
                     })
                 }
@@ -63,7 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         url: './change-qty/',
                         method: 'post',
                         success: function (response) {
-                            product = $('.cart-product-quantity-value').html(response['qty'])
+                            $('.cart-product-quantity-value').html(response['qty'])
+                            $('.cart-product-cost').html(response['total_cost'] + 'Руб.')
+                            update_cart_qty()
                         }
                     })
                 } else {
