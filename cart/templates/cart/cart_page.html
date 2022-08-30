@@ -73,7 +73,63 @@
                         </div>
                     {% endwith %}
                 {% endfor %}
+                <div class="coupon">
+                    <form id="coupon-form" class="coupon-form" action="#" method="post">
+                        <label>
+                            <span class="icon-promo-code">Промокод</span>
+                            <input class="" type="text" placeholder="Введите промокод" name="coupon_code">
+                        </label>
+                        <button id="coupon-btn" class="btn-primary"></button>
+                    </form>
+                    <div class="coupon-info">
+                        Активируйте промокоды программы лояльности после блока "Контакты"
+                    </div>
+                </div>
+                <h2>Оформление заказа</h2>
+                <div class="order-info">
+                    Товаров: {{ cart|length }}, на сумму {{ cart.get_total_price }} Руб.
+                </div>
+                <div class="steps">
+                    <div id="orderInfo">
+                        <div id="delivery-edit" class="step active">
+                            <h3>Доставка</h3>
+                            <div id="customerCity">
+                                <div class="step-inner">
+                                    <div class="delivery-country">
+                                        <div class="delivery-country-title">Ваша страна:</div>
+                                        <div class="delivery-country-holder">
+                                            <a href="#">Россия</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="form-get-delivery" class="select-city-form step-inner checkout-city">
+                                    <div class="city_select">
+                                        <span>Ваш город:</span>
+                                        <div class="">
+                                            <input type="text" name="city" value="" required="" id="id_city"
+                                                   placeholder="Название города">
+                                        </div>
+                                        <span>Индекс</span>
+                                        <div class="">
+                                            <input type="text" name="zipcode" value="" required="" id="id_zipcode"
+                                                   placeholder="Индекс">
+                                        </div>
+                                        <span>Способ доставки:</span>
+                                        <div class="">
+                                            <select name="delivery_type" id="id_delivery_type">
+                                                {% for id, name in delivery_form.delivery_type.field.choices %}
+                                                    <option value="{{ id }}">{{ name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
