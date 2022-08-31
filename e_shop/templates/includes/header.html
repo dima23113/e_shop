@@ -17,7 +17,7 @@
 </div>
 <div class="header-menu-search col-md-2 col-sm-2 col-lg-2">
     <div class="header-menu-category"><a
-            href="{% if user.is_authenticated %}#{% else %}{% url "account:login" %}{% endif %}"><img
+            href="{% if user.is_authenticated %}{% url 'account:user_profile' %}{% else %}{% url "account:login" %}{% endif %}"><img
             src="{% static "img/user.png" %}"></a></div>
     <div class="header-menu-category">
         <a href="#">
