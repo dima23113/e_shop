@@ -2,11 +2,13 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cart.cart import Cart
 from product.recently_product import RvProduct
-from .forms import LoginUserForm
+from .forms import LoginUserForm, PasswordChangeForm
+from .models import CustomUser
 
 
 class UserLoginView(View):
@@ -28,10 +30,42 @@ class UserLoginView(View):
                 login(request, user)
                 Cart(request, new_session=session_old)
                 return redirect('/')
+            else:
+                messages.error(request, 'Неверный логин или пароль!')
+                return redirect('account:login')
 
+
+class UserChangePassword(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'login'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'form': PasswordChangeForm(),
+        }
+        return render(request, 'account/change_password.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+        form = PasswordChangeForm(request.POST)
+        if form.is_valid():
+            user = CustomUser.objects.get(email=request.user)
+            cd = form.cleaned_data
+            if check_password(cd['password_now'], user.password):
+                if cd['password'] == cd['password1']:
+                    user.set_password(cd['password'])
+                    user.save()
+                    login(request, user)
+                    return redirect('/')
+                else:
+                    messages.add_message(request, messages.INFO,
+                                         'Повторный пароль некорректен!')
+                    return redirect('account:change_password')
+            else:
+                messages.add_message(request, messages.INFO,
+                                     'Текущий пароль не верен!')
+                return redirect('account:change_password')
         else:
-            messages.error(request, 'Неверный логин или пароль!')
-            return redirect('account:login')
+            return redirect('account:change_password')
 
 
 class AccountProfile(LoginRequiredMixin, View):
@@ -39,4 +73,7 @@ class AccountProfile(LoginRequiredMixin, View):
     redirect_field_name = 'login'
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'account/profile.html', context={'rv_products': RvProduct(request)})
+        context = {
+            'rv_products': RvProduct(request)
+        }
+        return render(request, 'account/profile.html', context=context)
