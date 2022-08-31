@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from .dev import *
+from django.urls import reverse_lazy
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -183,3 +184,5 @@ AUTH_USER_MODEL = 'account.CustomUser'
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'account/login.html'
 
 LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = reverse_lazy('account:login')

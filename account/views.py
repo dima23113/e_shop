@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -35,8 +35,15 @@ class UserLoginView(View):
                 return redirect('account:login')
 
 
+class UserLogoutView(LoginRequiredMixin, View):
+    redirect_field_name = 'login'
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('/')
+
+
 class UserChangePassword(LoginRequiredMixin, View):
-    login_url = '/login/'
     redirect_field_name = 'login'
 
     def get(self, request, *args, **kwargs):
@@ -69,7 +76,6 @@ class UserChangePassword(LoginRequiredMixin, View):
 
 
 class AccountProfile(LoginRequiredMixin, View):
-    login_url = '/login/'
     redirect_field_name = 'login'
 
     def get(self, request, *args, **kwargs):
