@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "cart",
     "account",
     "search",
+    "order",
     "wagtail.contrib.routable_page",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",

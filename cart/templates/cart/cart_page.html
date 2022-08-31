@@ -106,17 +106,19 @@
                                     <div class="city_select">
                                         <span>Ваш город:</span>
                                         <div class="">
-                                            <input type="text" name="city" value="" required="" id="id_city"
+                                            <input class="form-input" type="text" name="city" value="" required=""
+                                                   id="id_city"
                                                    placeholder="Название города">
                                         </div>
-                                        <span>Индекс</span>
+                                        <span>Почтовый индекс</span>
                                         <div class="">
-                                            <input type="text" name="zipcode" value="" required="" id="id_zipcode"
-                                                   placeholder="Индекс">
+                                            <input class="form-input" type="text" name="zipcode" value="" required=""
+                                                   id="id_zipcode"
+                                                   placeholder="Почтовый индекс">
                                         </div>
                                         <span>Способ доставки:</span>
                                         <div class="">
-                                            <select name="delivery_type" id="id_delivery_type">
+                                            <select class="form-input" name="delivery_type" id="id_delivery_type">
                                                 {% for id, name in delivery_form.delivery_type.field.choices %}
                                                     <option value="{{ id }}">{{ name }}</option>
                                                 {% endfor %}
@@ -126,13 +128,64 @@
                                 </form>
                             </div>
                         </div>
+                        <div id="delivery-view" class="step finished step-inner">
+                            <h3 class="point-of-issue"></h3>
+                            <a class="change-link" href="#">Изменить</a>
+                            <strong class="full-width shop-name"></strong>
+                            <div class="zip-code">
+                                <em></em>
+                            </div>
+                        </div>
+                        <div id="accountInfo" class="step checkout-account step-inner active">
+                            <h3>Контакты</h3>
+                            <span>Укажите свои данные, чтобы быть в курсе изменений статуса заказа.</span>
+                            <form id="accountForm" method="post" action="#">
+                                <div class="fieldset-vertical">
+                                    <span>Имя</span>
+                                    <div class="">
+                                        <input class="form-input" type="text" name="name" value="" required=""
+                                               id="id_name"
+                                               placeholder="Введите ваше имя">
+                                    </div>
+                                    <span>Фамилия</span>
+                                    <div class="">
+                                        <input class="form-input" type="text" name="second_name" value="" required=""
+                                               id="id_second_name"
+                                               placeholder="Введите вашу фамилию">
+                                    </div>
+                                    <span>Телефон для sms-уведомлений</span>
+                                    <div class="">
+                                        <input class="form-input" type="text" name="phone" value="" required=""
+                                               id="id_phone"
+                                               placeholder="+7(XXX) XXX-XX-XX">
+                                    </div>
+                                </div>
+                                <div class="order-comment">
+                                    <span>Комментарий к заказу</span>
+                                    <div class="">
+                                        <textarea class="form-input" type="text" name="comment" required=""
+                                                  id="id_comment"
+                                                  placeholder="Напишите что-нибудь"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <div class="checkout">
+                    <h3>Товаров: {{ cart|length }}</h3>
+                    <div class="totals">
+                        <span>Итого:</span>
+                        <div class="total_price">{{ cart.get_total_price }}</div>
+                        <div class="bonus"></div>
+                        <span class="total_bonus_price"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2"></div>
-        <div class="col-sm-2 col-md-2 col-lg-2"></div>
     </div>
     </div>
 {% endblock content %}
