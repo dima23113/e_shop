@@ -5,6 +5,7 @@ from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cart.cart import Cart
+from product.recently_product import RvProduct
 from .forms import LoginUserForm
 
 
@@ -38,4 +39,4 @@ class AccountProfile(LoginRequiredMixin, View):
     redirect_field_name = 'login'
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'account/profile.html')
+        return render(request, 'account/profile.html', context={'rv_products': RvProduct(request)})
