@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cart.cart import Cart
 from product.recently_product import RvProduct
-from .forms import LoginUserForm, PasswordChangeForm
+from .forms import LoginUserForm, PasswordChangeForm, AccountEditForm
 from .models import CustomUser
 
 
@@ -41,6 +41,28 @@ class UserLogoutView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('/')
+
+
+class AccountEditView(LoginRequiredMixin, View):
+    redirect_field_name = 'login'
+
+    def get(self, request, *args, **kwargs):
+        form = AccountEditForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'account/account_edit.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+        form = AccountEditForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = CustomUser.objects.get(email=request.user)
+            user.first_name = cd['first_name']
+            user.last_name = cd['second_name']
+            user.birthday = cd['birthday']
+            user.save()
+        return redirect('account:account_edit')
 
 
 class UserChangePassword(LoginRequiredMixin, View):

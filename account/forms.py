@@ -12,3 +12,9 @@ class PasswordChangeForm(forms.Form):
     password = forms.CharField(label='Новый пароль', widget=forms.PasswordInput, error_messages={'required': ''})
     password1 = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput,
                                 error_messages={'required': ''})
+
+
+class AccountEditForm(forms.Form):
+    first_name = forms.CharField(label='Имя', error_messages={'required': ''})
+    second_name = forms.CharField(label='Фамилия', error_messages={'required': ''})
+    birthday = forms.DateField(label='Дата рождения', error_messages={'required': ''})

@@ -88,12 +88,14 @@ class CartPage(RoutablePageMixin, Page):
                              'total_cost': cart.get_item_total_price(cart.cart[product]['price'],
                                                                      cart.cart[product]['qty'])})
 
-    def serve(self, request, *args, **kwargs):
+
+'''    def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
             from cart.forms import DeliveryForm
-            delivery_form = DeliveryForm(request)
+            delivery_form = DeliveryForm(request.POST)
+            print(delivery_form.has_changed())
             if delivery_form.is_valid():
                 print(delivery_form)
             return JsonResponse({'ok': 'ok'})
         else:
-            return super().serve(request, *args, **kwargs)
+            return super().serve(request, *args, **kwargs)'''
