@@ -1,3 +1,4 @@
+import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cart.cart import Cart
 from product.recently_product import RvProduct
-from .forms import LoginUserForm, PasswordChangeForm, AccountEditForm
+from .forms import LoginUserForm, PasswordChangeForm, AccountEditForm, AddressesForm
 from .models import CustomUser
 
 
@@ -105,3 +106,49 @@ class AccountProfile(LoginRequiredMixin, View):
             'rv_products': RvProduct(request)
         }
         return render(request, 'account/profile.html', context=context)
+
+
+class AccountAddressesView(LoginRequiredMixin, View):
+    redirect_field_name = 'login'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+        }
+        return render(request, 'account/address_book.html', context=context)
+
+
+class AccountAddAddressView(LoginRequiredMixin, View):
+    redirect_field_name = 'login'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'form': AddressesForm(),
+        }
+        return render(request, 'account/address_add.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+        form = AddressesForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            return redirect('account:account_addresses')
+        else:
+            return redirect('account:add_address')
+
+
+class AddressEditView(LoginRequiredMixin, View):
+    redirect_field_name = 'login'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'form': AddressesForm(),
+            'address': request.GET.get('address', '')
+        }
+        return render(request, 'account/address_edit.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+        form = AddressesForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            return redirect('account:account_addresses')
+        else:
+            return redirect('account:account_edit' + '?' + 'address=' + '')

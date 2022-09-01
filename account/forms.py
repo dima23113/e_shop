@@ -1,4 +1,5 @@
 from django import forms
+from .models import UserAddress
 
 
 class LoginUserForm(forms.Form):
@@ -18,3 +19,10 @@ class AccountEditForm(forms.Form):
     first_name = forms.CharField(label='Имя', error_messages={'required': ''})
     second_name = forms.CharField(label='Фамилия', error_messages={'required': ''})
     birthday = forms.DateField(label='Дата рождения', error_messages={'required': ''})
+
+
+class AddressesForm(forms.ModelForm):
+    class Meta:
+        model = UserAddress
+        fields = '__all__'
+

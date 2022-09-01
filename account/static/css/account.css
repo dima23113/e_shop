@@ -42,7 +42,7 @@
     color: black;
 }
 
-.block-submit input {
+.block-submit input, .block-submit a {
     text-decoration: none;
     border: 1px solid black;
     color: white;
@@ -186,4 +186,17 @@
 
 .user-edit-container form div label {
     color: black;
+}
+
+.address, .address:hover, .icon-new-address, .icon-new-address:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.icon-address {
+    text-align: center;
+}
+
+.address {
+    margin-top: 15px;
 }
