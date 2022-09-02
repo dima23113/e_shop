@@ -128,8 +128,8 @@ class AccountAddAddressView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         form = AddressesForm(request.POST)
-        user = CustomUser.objects.get(email=request.user)
         if form.is_valid():
+            user = CustomUser.objects.get(email=request.user)
             address = form.save(commit=False)
             address.user = user
             address.save()
@@ -142,17 +142,22 @@ class AddressEditView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
 
     def get(self, request, *args, **kwargs):
-        address = UserAddress.objects.get(request.GET.get('address'))
+        address = UserAddress.objects.get(id=int(request.GET.get('address', '')[0]))
+        print(address)
         context = {
             'form': AddressesForm(instance=address),
-            'address': request.GET.get('address', '')
+            'address': address
         }
         return render(request, 'account/address_edit.html', context=context)
 
     def post(self, request, *args, **kwargs):
-        form = AddressesForm(request.POST)
+        address = UserAddress.objects.get(id=int(request.POST.get('id_address')))
+        form = AddressesForm(request.POST, instance=address)
         if form.is_valid():
-            print(form.cleaned_data)
+            address = form.save(commit=False)
+            user = CustomUser.objects.get(email=request.user)
+            address.user = user
+            address.save()
             return redirect('account:account_addresses')
         else:
             return redirect('account:account_edit' + '?' + 'address=' + '')
