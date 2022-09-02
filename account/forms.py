@@ -24,5 +24,4 @@ class AccountEditForm(forms.Form):
 class AddressesForm(forms.ModelForm):
     class Meta:
         model = UserAddress
-        fields = '__all__'
-
+        fields = ['country', 'city', 'zip_code', 'street', 'street_number', 'comment', 'phone', 'address_name']

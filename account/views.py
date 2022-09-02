@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from cart.cart import Cart
 from product.recently_product import RvProduct
 from .forms import LoginUserForm, PasswordChangeForm, AccountEditForm, AddressesForm
-from .models import CustomUser
+from .models import CustomUser, UserAddress
 
 
 class UserLoginView(View):
@@ -128,8 +128,11 @@ class AccountAddAddressView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         form = AddressesForm(request.POST)
+        user = CustomUser.objects.get(email=request.user)
         if form.is_valid():
-            print(form.cleaned_data)
+            address = form.save(commit=False)
+            address.user = user
+            address.save()
             return redirect('account:account_addresses')
         else:
             return redirect('account:add_address')
@@ -139,8 +142,9 @@ class AddressEditView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
 
     def get(self, request, *args, **kwargs):
+        address = UserAddress.objects.get(request.GET.get('address'))
         context = {
-            'form': AddressesForm(),
+            'form': AddressesForm(instance=address),
             'address': request.GET.get('address', '')
         }
         return render(request, 'account/address_edit.html', context=context)

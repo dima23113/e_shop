@@ -29,7 +29,7 @@ class UserAddress(models.Model):
     ukr = 'Украина'
     blr = 'Беларусь'
     countries = [
-        (ru, 'Россиия'),
+        (ru, 'Россия'),
         (ukr, 'Украина'),
         (blr, 'Беларусь')
     ]
