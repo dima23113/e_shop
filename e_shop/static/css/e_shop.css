@@ -179,3 +179,7 @@ input.header-search-field * {
     display: inline-flex;
 
 }
+
+footer {
+    margin-top: 60px;
+}
