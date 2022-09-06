@@ -2,6 +2,8 @@ from django import template
 
 from wagtail.models import Page, Site
 
+from home.models import Footer
+
 register = template.Library()
 
 
@@ -72,4 +74,12 @@ def top_menu_children(context, parent, calling_page=None):
         'menuitems_children': menuitems_children,
         # required by the pageurl tag that we want to use within this templates
         'request': context['request'],
+    }
+
+
+@register.inclusion_tag('tags/footer.html', takes_context=True)
+def footer_tag(context):
+    return {
+        'request': context['request'],
+        'footer': Footer.objects.first()
     }

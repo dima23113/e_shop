@@ -10,8 +10,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4"></div>
-            <div class="col-sm-4 col-md-4 col-lg-4">
-                <h2 class="hardline" style="margin-bottom: 0.0px;">Добавить адрес</h2>
+            <div class="col-sm-4 col-md-4 col-lg-4" style="margin-top: 15px">
+                <h2 class="hardline" style="margin-bottom: 0.0px; text-align: center">Добавить адрес</h2>
                 <div class="user-edit-container login " style="margin-top: 0px">
                     <form class="account-edit" method="post" action="{% url "account:add_address" %}">
                         {% csrf_token %}
@@ -22,7 +22,7 @@
                         </div>
                         <div class="block-a" style="margin-top: 0px">
                             <label class="label-form" for="country">{{ form.country.label }}</label>
-                            <select type="text" name="country" required="" id="id_country">
+                            <select type="text" name="country" required="" id="id_country" style="background-color: white">
                                 {% for id, name in form.country.field.choices %}
                                     <option value="{{ id }}">{{ name }}</option>
                                 {% endfor %}
@@ -56,7 +56,7 @@
                         </div>
                         <div class="block-a" style="margin-top: 0px">
                             <label class="label-form" for="phone">{{ form.phone.label }}</label>
-                            <input type="text" name="phone" required="" id="id_phone"
+                            <input type="text" name="phone" required="*" id="id_phone"
                                    value="" maxlength="256">
                         </div>
                         <div class="block-submit" style="margin-top: 0px">

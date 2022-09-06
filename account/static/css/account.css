@@ -197,7 +197,30 @@
     text-align: center;
 }
 
+
+.address h2 {
+    text-align: center;
+}
+
 .address {
     margin-top: 15px;
 }
 
+.address-box-content .hardline {
+    margin-bottom: 0;
+}
+
+.edit-delete-address a:hover, a {
+    color: black;
+    font-size: 14px;
+    text-decoration: none;
+    padding-left: 0;
+}
+
+.block-submit {
+    padding-left: 0;
+}
+
+.edit-delete-address {
+    margin-bottom: 10px;
+}

@@ -1,16 +1,17 @@
 from django.db import models
 from django.core.paginator import Paginator
-from django.http import JsonResponse
 from django.shortcuts import render
 
 from slugify import slugify
 
 from modelcluster.fields import ParentalKey
-from wagtail.blocks import PageChooserBlock
+from wagtail.blocks import PageChooserBlock, RichTextBlock
 from wagtail.fields import StreamField
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.snippets.models import register_snippet
 
 
 class BannerMeta(models.Model):
@@ -138,3 +139,19 @@ class HomePage(RoutablePageMixin, Page):
         StreamFieldPanel('brand_logo'),
         StreamFieldPanel('banner_bottom')
     ]
+
+
+@register_snippet
+class Footer(models.Model):
+    bodytext = StreamField([
+        ('image_links', ImageChooserBlock(help_text='Изображения линк ссылок')),
+        ('links', RichTextBlock(help_text='ссылки')),
+        ('faq_pages', PageChooserBlock(help_text='FAQ ссылки'))], verbose_name='Поля футера'
+    )
+
+    def __str__(self):
+        return 'Футер'
+
+    class Meta:
+        verbose_name = 'Футер'
+        verbose_name_plural = 'Футер'

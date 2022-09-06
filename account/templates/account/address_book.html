@@ -8,51 +8,47 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2 col-md-2 col-lg-2"></div>
-            <div class="col-sm-8 col-md-8 col-lg-8">
-                <h2 class="hardline">
-                    Адресная книга
-                </h2>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-5 col-md-5 col-lg-5">
-                            <div class="icon-address">
-                                <a class="icon-new-address" href="#">
-                                    <img src="{% static "img/home(2).png" %}">
-                                </a>
-                            </div>
-                            <div class="block-submit address" style="text-align: center">
-                                <a class="address" href="{% url "account:add_address" %}">Новый адрес</a>
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="address col-sm-8 col-md-8 col-lg-8">
+            <h2 class="hardline">
+                Адресная книга
+            </h2>
+            <div class="icon-address">
+                <a class="icon-new-address" href="{% url "account:add_address" %}">
+                    <img src="{% static "img/home(2).png" %}">
+                </a>
+            </div>
+            <div class="block-submit address" style="text-align: center">
+                <a class="address" href="{% url "account:add_address" %}">Новый адрес</a>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    {% for address in request.user.user_addresses.all %}
+                        <div class="address-box-content">
+                            <h3 class="hardline">{{ address.address_name }}</h3>
+                            <br>
+                            Имя: {{ request.user.get_full_name }}
+                            <br>
+                            Улица: {{ address.street }}
+                            <br>
+                            Почтовый индекс: {{ address.zip_code }} - {{ address.city }}
+                            <br>
+                            Страна: {{ address.country }}
+                            <br>
+                            Телефон: {{ address.phone }}
+                            <div class="edit-delete-address">
+                                <a class="block-submit"
+                                   href="{% url "account:edit_address" %}?address={{ address.id }}/"
+                                   style="color: black">Изменить</a>
+                                <a class="block-submit" href="#" style="color: black">Удалить</a>
                             </div>
                         </div>
-                        <div class="col-sm-8 col-md-8 col-lg-8">
-                            {% for address in request.user.user_addresses.all %}
-                                <div class="address-box-content">
-                                    <h3 class="hardline">{{ address.address_name }}</h3>
-                                    <br>
-                                    {{ request.user.get_full_name }}
-                                    <br>
-                                    {{ address.street }}
-                                    <br>
-                                    {{ address.zip_code }} - {{ address.city }}
-                                    <br>
-                                    {{ address.country }}
-                                    <br>
-                                    {{ address.phone }}
-                                    <div class="edit-delete-address">
-                                        <a class="block-submit"
-                                           href="{% url "account:edit_address" %}?address={{ address.id }}/">Изменить</a>
-                                        <a class="block-submit" href="#">Удалить</a>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="col-sm-2 col-md-2 col-lg-2"></div>
         </div>
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
     </div>
 {% endblock content %}
 
