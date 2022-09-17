@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/account.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="watchlist">
+                    <h1 class="hardline">Список желаемого</h1>
+                </div>
+                <div class="favorites">
+                    <h2 class=hardline>Доступные товары</h2>
+                    {% for product in favorites %}
+                        <div class="favorite-product">
+                            <a href="{% slugurl product.slug %}">
+                                <div class="listing-product-container">
+                                    <div class="swiper ProductCart">
+                                        <div class="swiper-wrapper">
+                                            {% for img in product.image %}
+                                                {% image img.value width-300 height-300 as product_img %}
+                                                <div class="swiper-slide">
+                                                    <img class="listing-product-image" src="{{ product_img.url }}">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                    </div>
+                                </div>
+                                <div class="listing-product-brand">{{ product.brand_fk }}</div>
+                                <div class="listing-product-name">{{ product.name }}</div>
+                                <div class="listing-product-bottom">
+                                    <div class="listing-product-price">
+                                        <div class="listing-product-price-regular">{{ product.price }} руб.</div>
+                                    </div>
+                                    <div class="listing-product-rating"></div>
+                                </div>
+                                <button class="add-to-cart"></button>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/product-cart-swiper.js' %}"></script>
+{% endblock extra_js %}

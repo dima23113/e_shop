@@ -161,3 +161,13 @@ class AddressEditView(LoginRequiredMixin, View):
             return redirect('account:account_addresses')
         else:
             return redirect('account:account_edit' + '?' + 'address=' + '')
+
+
+class AccountFavoritesView(LoginRequiredMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'favorites': CustomUser.objects.prefetch_related('product_favorites').get(
+                email=request.user).product_favorites.all()
+        }
+        return render(request, 'account/favorites.html', context=context)

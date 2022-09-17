@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import UserLoginView, AccountProfile, UserChangePassword, UserLogoutView, AccountEditView, \
-    AccountAddressesView, AccountAddAddressView, AddressEditView
+    AccountAddressesView, AccountAddAddressView, AddressEditView, AccountFavoritesView
 
 app_name = 'account'
 
@@ -13,5 +13,6 @@ urlpatterns = [
     path('account-edit/', AccountEditView.as_view(), name='account_edit'),
     path('account-address/edit', AddressEditView.as_view(), name='edit_address'),
     path('account-addresess/add/', AccountAddAddressView.as_view(), name='add_address'),
-    path('account-addresses/', AccountAddressesView.as_view(), name='account_addresses')
+    path('account-addresses/', AccountAddressesView.as_view(), name='account_addresses'),
+    path('favorites/', AccountFavoritesView.as_view(), name='account_favorites')
 ]

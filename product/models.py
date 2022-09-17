@@ -95,7 +95,6 @@ class Product(RoutablePageMixin, BannerMeta, Page):
             from account.models import CustomUser
             user = CustomUser.objects.get(email=request.user)
             user.product_favorites.add(self)
-            print(user.product_favorites.all())
             return JsonResponse({'success': 'ok'})
 
     @route(r'^add-to-recently-viewed/')
