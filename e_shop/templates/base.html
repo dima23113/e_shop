@@ -69,6 +69,22 @@
 
     update_cart_qty()
 </script>
+
+<script>
+    function update_fav_qty() {
+        $.ajax({
+            url: '/products/get-fav-qty/',
+            method: 'get',
+            success: function (response) {
+                badge = document.getElementById('fav-qty')
+                badge.innerText = response['fav-qty']
+                console.log(response['fav-qty'])
+            }
+        })
+    }
+
+    update_fav_qty()
+</script>
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
 {% endblock %}

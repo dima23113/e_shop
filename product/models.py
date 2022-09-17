@@ -12,6 +12,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from brand.models import Brand
 from home.models import Category, Rubric, BannerMeta
+from account.models import CustomUser
 
 
 class Product(RoutablePageMixin, BannerMeta, Page):
@@ -39,6 +40,7 @@ class Product(RoutablePageMixin, BannerMeta, Page):
     ])
     price_discount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена товара со скидкой')
     sale = models.BooleanField(default=False, verbose_name='Индикатор активности скидки')
+    favorite = models.ManyToManyField(CustomUser, through='Favorites', related_name='product_favorites')
 
     content_panels = [
         FieldPanel('title'),
@@ -86,6 +88,15 @@ class Product(RoutablePageMixin, BannerMeta, Page):
         cart.add(product=self, qty=1, size=request.GET.get('size'), update_qty=False)
         print(cart.cart)
         return JsonResponse({'success': 'ok'})
+
+    @route(r'^add-to-favorite/')
+    def add_to_favorite(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            from account.models import CustomUser
+            user = CustomUser.objects.get(email=request.user)
+            user.product_favorites.add(self)
+            print(user.product_favorites.all())
+            return JsonResponse({'success': 'ok'})
 
     @route(r'^add-to-recently-viewed/')
     def add_to_recently_viewed(self, request, *args, **kwargs):
@@ -138,3 +149,18 @@ class ProductIndex(RoutablePageMixin, BannerMeta, Page):
         from cart.cart import Cart
         cart = Cart(request)
         return JsonResponse({'cart-qty': len(cart)})
+
+    @route(r'^get-fav-qty/')
+    def get_fav_qty(self, request, *args, **kwargs):
+        user = CustomUser.objects.get(email=request.user)
+        return JsonResponse({'fav-qty': user.product_favorites.all().count()})
+
+
+class Favorites(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Пользолватель')
+    favorite = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Избранный товар')
+    create = models.DateField(auto_now_add=True, verbose_name='Дата добавления')
+
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранное'

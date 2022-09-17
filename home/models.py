@@ -5,7 +5,7 @@ from django.shortcuts import render
 from slugify import slugify
 
 from modelcluster.fields import ParentalKey
-from wagtail.blocks import PageChooserBlock, RichTextBlock
+from wagtail.blocks import PageChooserBlock, StreamBlock, URLBlock
 from wagtail.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
@@ -143,11 +143,14 @@ class HomePage(RoutablePageMixin, Page):
 
 @register_snippet
 class Footer(models.Model):
-    bodytext = StreamField([
-        ('image_links', ImageChooserBlock(help_text='Изображения линк ссылок')),
-        ('links', RichTextBlock(help_text='ссылки')),
-        ('faq_pages', PageChooserBlock(help_text='FAQ ссылки'))], verbose_name='Поля футера'
-    )
+    media = StreamField([
+        ('media_links', StreamBlock([
+            ('image', ImageChooserBlock(required=True)),
+            ('link', URLBlock(required=True))
+        ]),)
+    ], verbose_name='Медиа блоки')
+
+    panels = [StreamFieldPanel('media')]
 
     def __str__(self):
         return 'Футер'

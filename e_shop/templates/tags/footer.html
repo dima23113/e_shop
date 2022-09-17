@@ -1,4 +1,21 @@
+{% load wagtailimages_tags %}
 <footer>
-    {{ footer.bodytext.links }}
-    Футер
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 col-lg-2 col-md-2"></div>
+            <div class="footer col-sm-8 col-lg-8 col-md-8">
+                <div class="social-media">
+                    <h2 class="hardline">Следите за нами здесь!</h2>
+                    {% for img, link, media in footer.bodytext %}
+                            {% image img.value original as sm_logo %}
+                            <a href="{{ link }}">
+                                <img src="{{ sm_logo.url }}">
+                            </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-2 col-lg-2 col-md-2"></div>
+        </div>
+    </div>
 </footer>

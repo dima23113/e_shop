@@ -1,0 +1,11 @@
+<div id="media-links">
+    {% for block in value.media_link %}
+        {# block.value is now a StructBlock value #}
+        <div class="media-link">
+            <a href="{{ block.link }}">
+                {% image block.image original as image %}
+                <img src="{{ image.url }}">
+            </a>
+        </div>
+    {% endfor %}
+</div>
