@@ -104,17 +104,20 @@
                                 </div>
                                 <form id="form-get-delivery" class="select-city-form step-inner checkout-city">
                                     <div class="city_select">
-                                        <span>Ваш город:</span>
+                                        <span>Выберите адрес:</span>
                                         <div class="">
-                                            <input class="form-input" type="text" name="city" value="" required=""
-                                                   id="id_city"
-                                                   placeholder="Название города">
-                                        </div>
-                                        <span>Почтовый индекс</span>
-                                        <div class="">
-                                            <input class="form-input" type="text" name="zipcode" value="" required=""
-                                                   id="id_zipcode"
-                                                   placeholder="Почтовый индекс">
+                                            {% if user.user_addresses.all|length > 0 %}
+                                                <select class="form-input" type="text" name="address" required=""
+                                                        id="id_address">
+                                                    {% for address in user.user_addresses.all %}
+                                                        <option value="{{ address.id }}">{{ address.country }}-{{ address.city }}-{{ address.street }}-{{ address.street_number }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            {% else %}
+                                                <div class="add-address">
+                                                    <a href="{% url  'account:add_address' %}">Добавить адрес</a>
+                                                </div>
+                                            {% endif %}
                                         </div>
                                         <span>Способ доставки:</span>
                                         <div class="">
