@@ -70,13 +70,15 @@ class CartPage(RoutablePageMixin, Page):
         product = request.POST.get('product_id', None)
         cart = Cart(request)
         cart.remove(product)
-        return JsonResponse({'id': product.split('-')[0]})
+        return JsonResponse({'id': product})
 
     @route(r'^change-qty/')
     def change_qty(self, request, *args, **kwargs):
         from cart.cart import Cart
         product = request.POST.get('product', None)
         sign = request.POST.get('sign')
+        id = request.POST.get('id')
+        print(product, sign, id)
         cart = Cart(request)
         if sign == '-':
             cart.cart[product]['qty'] -= 1
@@ -84,9 +86,14 @@ class CartPage(RoutablePageMixin, Page):
         else:
             cart.cart[product]['qty'] += 1
             cart.save()
-        return JsonResponse({'qty': cart.cart[product]['qty'],
-                             'total_cost': cart.get_item_total_price(cart.cart[product]['price'],
-                                                                     cart.cart[product]['qty'])})
+        return JsonResponse(
+            {
+                'qty': cart.cart[product]['qty'],
+                'total_cost': cart.get_item_total_price(cart.cart[product]['price'],
+                                                        cart.cart[product]['qty']),
+                'id': id
+            }
+        )
 
 
 '''    def serve(self, request, *args, **kwargs):

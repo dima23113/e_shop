@@ -29,44 +29,55 @@ document.addEventListener('DOMContentLoaded', function () {
                     success: function (response) {
                         console.log($(this))
                         var el = document.getElementById(response['id'])
-                        el.parentNode.parentNode.parentNode.removeChild(el.parentNode.parentNode)
+                        el.remove()
                         update_cart_qty()
                     }
                 })
             });
             $('.icon-minus').click(function () {
-                var product_count = Number($('.cart-product-quantity-value').text())
-                var product = $('.cart-product').data('item-id')
-                var size = $('.cart-product').data('size')
-                console.log(product)
+                console.log($(this).data('item-id'))
+                var product = $(this).data('item-id')
+                var product_count = Number($('#'+ 'qty' + product).text())
                 if (product_count === 1) {
                     console.log('ss');
                 } else {
                     $.ajax({
-                        data: {'product': product + '-' + size, 'sign': '-', 'csrfmiddlewaretoken': csrftoken},
+                        data: {
+                            'product': product,
+                            'sign': '-',
+                            'csrfmiddlewaretoken': csrftoken,
+                            'id': product
+                        },
                         url: './change-qty/',
                         method: 'post',
                         success: function (response) {
-                            product = $('.cart-product-quantity-value').html(response['qty'])
-                            $('.cart-product-cost').html(response['total_cost'] + 'Руб.')
+                            $('#'+ 'qty' + response['id']).html(response['qty'])
+                            $('#'+ 'cost' + response['id']).html(response['total_cost'] + 'Руб.')
                             update_cart_qty()
                         }
                     })
                 }
             });
             $('.icon-plus').click(function () {
-                var max_qty = Number($('.cart-product').data('quantity-available'))
-                var product_count = Number($('.cart-product-quantity-value').text())
-                var product = $('.cart-product').data('item-id')
-                var size = $('.cart-product').data('size')
+                console.log($(this).data('item-id'))
+                var product = $(this).data('item-id')
+                var product_count = Number($('#'+ 'qty' + product).text())
+                console.log(product_count)
+                var max_qty = Number($('#' + product).data('quantity-available'))
+                console.log(max_qty)
                 if (product_count < max_qty) {
                     $.ajax({
-                        data: {'product': product + '-' + size, 'sign': '+', 'csrfmiddlewaretoken': csrftoken},
+                        data: {
+                            'product': product,
+                            'sign': '+',
+                            'csrfmiddlewaretoken': csrftoken,
+                            'id': product
+                        },
                         url: './change-qty/',
                         method: 'post',
                         success: function (response) {
-                            $('.cart-product-quantity-value').html(response['qty'])
-                            $('.cart-product-cost').html(response['total_cost'] + 'Руб.')
+                            $('#'+ 'qty' + response['id']).html(response['qty'])
+                            $('#'+ 'cost' + response['id']).html(response['total_cost'] + 'Руб.')
                             update_cart_qty()
                         }
                     })
