@@ -4,6 +4,7 @@
 - virtualenv
 - Docker
 - PostgreSQL
+- Wagtail 3.0.3
 
 ## Установка
 
